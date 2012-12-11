@@ -14,4 +14,5 @@ group :assets do
       git: 'git://github.com/droidlabs/sinatra-sprockets.git'
   gem 'closure-compiler'
   gem 'yui-compressor'
+  gem 'coffee-script'
 end
