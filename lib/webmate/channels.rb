@@ -8,25 +8,25 @@ module Webmate
         pass unless request.websocket?
         request.websocket do |ws|
           ws.onopen do
-            settings.sockets[request.path] ||= []
-            settings.sockets[request.path] << ws
+            settings._websockets[request.path] ||= []
+            settings._websockets[request.path] << ws
           end
           ws.onmessage do |msg|
             EM.next_tick do
               data = Yajl::Parser.new(symbolize_keys: true).parse(msg)
               body = RouterChannel.respond_to(path, data)
-              settings.sockets[request.path].each{|s| s.send(body) }
+              settings._websockets[request.path].each{|s| s.send(body) }
             end
           end
           ws.onclose do
             warn("websocket closed")
-            settings.sockets[request.path].delete(ws)
+            settings._websockets[request.path].delete(ws)
           end
         end
       end
       channel.routes.each do |route|
         responder_block = lambda do
-          route[:responder].new(route[:action]).respond
+          route[:responder].new(route[:action]).respond({action: route[:action]})
         end
         send(route[:method], route[:route], {}, &responder_block)
       end

@@ -1,9 +1,6 @@
 class WebmateApp < Sinatra::Base
-  register Webmate::Channels
-  set :sockets, {}
-
   get '/' do
-    "Hello World"
+    configatron.hello.world
   end
 
   channel "projects/:project_id" do

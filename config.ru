@@ -3,11 +3,7 @@ require 'sinatra'
 require 'sinatra/synchrony'
 require 'sinatra/contrib/all'
 require 'sinatra-websocket'
+require 'configatron'
 
-require './lib/webmate/channels'
-
-require './responders/tasks'
-
-require './application'
-
+require './lib/webmate'
 run WebmateApp
