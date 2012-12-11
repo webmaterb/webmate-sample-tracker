@@ -7,3 +7,11 @@ gem 'sinatra-websocket'
 gem 'thin'
 gem 'yajl-ruby'
 gem 'configatron'
+
+group :assets do
+  gem 'therubyracer', '0.10.2'
+  gem 'alphasights-sinatra-sprockets', require: 'sinatra-sprockets',
+      git: 'git://github.com/droidlabs/sinatra-sprockets.git'
+  gem 'closure-compiler'
+  gem 'yui-compressor'
+end

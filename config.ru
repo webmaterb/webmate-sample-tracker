@@ -1,9 +1,7 @@
-require 'rubygems'
-require 'sinatra'
-require 'sinatra/synchrony'
-require 'sinatra/contrib/all'
-require 'sinatra-websocket'
-require 'configatron'
+require './config/environment'
 
-require './lib/webmate'
+map '/assets' do
+  run Sinatra::Sprockets.environment
+end
+
 run WebmateApp
