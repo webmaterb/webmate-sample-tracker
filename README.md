@@ -1,0 +1,2 @@
+## Start server
+* $ thin start
