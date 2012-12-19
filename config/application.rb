@@ -1,6 +1,6 @@
 class WebmateApp < Sinatra::Base
   get '/' do
-    configatron.hello.world
+    slim :index, layout: :layouts
   end
 
   channel "projects/:project_id" do

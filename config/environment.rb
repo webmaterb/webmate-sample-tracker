@@ -6,6 +6,7 @@ require 'sinatra-websocket'
 require 'configatron'
 require 'closure-compiler'
 require 'yui/compressor'
+require 'slim/logic_less'
 
 require './lib/webmate'
 

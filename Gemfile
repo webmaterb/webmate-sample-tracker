@@ -7,6 +7,7 @@ gem 'sinatra-websocket'
 gem 'thin'
 gem 'yajl-ruby'
 gem 'configatron'
+gem 'slim'
 
 group :assets do
   gem 'therubyracer', '0.10.2'
