@@ -16,7 +16,8 @@ Sinatra::Sprockets.configure do |config|
   config.app = WebmateApp
 
   ['stylesheets', 'javascripts', 'images'].each do |dir|
-    config.append_path(File.join('..', 'app', 'assets', dir))
+    config.append_path(File.join('app', 'assets', dir))
   end
   config.precompile = [ /\w+\.(?!js|css).+/, /application.(css|js)/ ]
+  config.compress = false
 end

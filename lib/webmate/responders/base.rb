@@ -8,7 +8,12 @@ module Webmate::Responders
     end
 
     def respond
-      self.send(action.split('/').last)
+      response = self.send(action.split('/').last)
+      wrap_response(response)
+    end
+
+    def wrap_response(response)
+      Yajl::Encoder.new.encode({action: @action, data: response})
     end
   end
 end
