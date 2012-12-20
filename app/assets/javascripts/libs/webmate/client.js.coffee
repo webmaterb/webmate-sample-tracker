@@ -2,21 +2,31 @@ class Webmate.Client
   constructor: (channel) ->
     self = @
     @bindings = {}
-    @websocket = new WebSocket("ws://#{location.host}/#{channel}")
-    @websocket.onmessage = (e)->
-      response = JSON.parse(e.data)
-      eventBinding = self.bindings[response.action]
-      _.each eventBinding, (binding)->
-        binding(response.data)
+    @channel = channel
+    @fullPath = "#{location.host}/#{channel}"
+    if !window.WebSocket
+      @websocket = new WebSocket("ws://#{@fullPath}")
+      @websocket.onmessage = (e)->
+        response = JSON.parse(e.data)
+        eventBinding = self.bindings[response.action]
+        _.each eventBinding, (binding)->
+          binding(response.data)
+    else
+      console.log("Websocket not supported. Using http.")
     @
   on: (action, callback)->
     @bindings[action] = [] if !@bindings[action]
     @bindings[action].push(callback)
     @
-  send: (action, data)->
-    data ||= {}
+  send: (action, data, method)->
+    data = {} if !data
+    method = 'get' if !method
     data.action = action
-    @websocket.send(JSON.stringify(data))
+    if @websocket
+      @websocket.send(JSON.stringify(data))
+    else
+      $.ajax("http://#{@fullPath}/#{action}", type: method).success (data)->
+        console.log(data)
     @
 
 Webmate.connect = (channel)->

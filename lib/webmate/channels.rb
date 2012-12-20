@@ -27,7 +27,7 @@ module Webmate
       channel.routes.each do |route|
         responder_block = lambda do
           data = params.merge({action: route[:action]})
-          route[:responder].new(data).respond(data)
+          route[:responder].new(data).respond
         end
         send(route[:method], route[:route], {}, &responder_block)
       end
