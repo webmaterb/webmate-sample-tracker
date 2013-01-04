@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'webmate', path: File.dirname(__FILE__) + '/webmate'
+# Specify your gem's dependencies in webmate.gemspec
+gemspec
 
 gem 'sinatra'
 gem 'sinatra-synchrony'

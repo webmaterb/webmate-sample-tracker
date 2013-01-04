@@ -8,7 +8,7 @@ require 'closure-compiler'
 require 'yui/compressor'
 require 'slim/logic_less'
 
-require './lib/webmate'
+require 'webmate'
 
 class WebmateApp < Sinatra::Base; end;
 

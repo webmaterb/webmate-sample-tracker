@@ -1,8 +1,8 @@
-require './lib/webmate/config'
-require './lib/webmate/channels'
-require './lib/webmate/sprockets'
-require './lib/webmate/responders/base'
-require './lib/webmate/services/base'
+require 'webmate/config'
+require 'webmate/channels'
+require 'webmate/sprockets'
+require 'webmate/responders/base'
+require 'webmate/services/base'
 
 module Responders
 end

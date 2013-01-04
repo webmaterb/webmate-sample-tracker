@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require './config/environment'
+
+if ARGV.first == "server"
+  require 'thin'
+  Thin::Runner.new(["start"]).run!
+elsif ARGV.first == "console"
+  require 'irb'
+  ARGV.clear
+  IRB.start
+end

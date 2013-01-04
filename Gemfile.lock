@@ -5,6 +5,11 @@ GIT
     alphasights-sinatra-sprockets (0.1.0)
       sprockets (~> 2.0)
 
+PATH
+  remote: webmate
+  specs:
+    webmate (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -14,7 +19,7 @@ GEM
     Platform (0.4.0)
     addressable (2.3.2)
     backports (2.6.5)
-    closure-compiler (1.1.7)
+    closure-compiler (1.1.8)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -109,5 +114,6 @@ DEPENDENCIES
   slim
   therubyracer (= 0.10.2)
   thin
+  webmate!
   yajl-ruby
   yui-compressor
