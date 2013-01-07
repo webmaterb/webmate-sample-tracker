@@ -1,19 +1,19 @@
 # -*- encoding: utf-8 -*-
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+$:.unshift File.expand_path("../lib", __FILE__)
 require 'webmate/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "webmate"
   gem.version       = Webmate::VERSION
+
   gem.authors       = ["Iskander Haziev"]
   gem.email         = ["gvalmon@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{Real-time web application framework in Ruby}
+  gem.summary       = %q{Real-time web application framework in Ruby}
+  gem.homepage      = "https://github.com/droidlabs/webmate"
+  gem.license       = "MIT"
 
   gem.files         = `git ls-files`.split($/)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
+  gem.executables   = "webmate"
   gem.require_paths = ["lib"]
 end

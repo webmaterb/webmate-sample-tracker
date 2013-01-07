@@ -8,7 +8,7 @@ GIT
 PATH
   remote: webmate
   specs:
-    webmate (0.0.1)
+    webmate (0.0.3)
 
 GEM
   remote: https://rubygems.org/
