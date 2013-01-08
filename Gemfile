@@ -20,3 +20,8 @@ group :assets do
   gem 'yui-compressor'
   gem 'coffee-script'
 end
+
+group :test do
+    gem 'rspec'
+    gem 'rack-test', :require => "rack/test"
+end
