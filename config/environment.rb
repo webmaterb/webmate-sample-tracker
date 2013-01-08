@@ -21,3 +21,6 @@ Sinatra::Sprockets.configure do |config|
   config.precompile = [ /\w+\.(?!js|css).+/, /application.(css|js)/ ]
   config.compress = false
 end
+
+path = File.expand_path("#{__FILE__}/../initializers/*.rb")
+Dir[path].each { |initializer| require(initializer) }

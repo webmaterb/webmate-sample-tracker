@@ -10,6 +10,7 @@ gem 'thin'
 gem 'yajl-ruby'
 gem 'configatron'
 gem 'slim'
+gem 'mongoid'
 
 group :assets do
   gem 'therubyracer', '0.10.2'
