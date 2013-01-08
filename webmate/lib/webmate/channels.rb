@@ -12,7 +12,7 @@ module Webmate
             settings._websockets[request.path] << ws
           end
           ws.onmessage do |msg|
-            EM.next_tick do
+            EM.synchrony do
               data = Yajl::Parser.new(symbolize_keys: true).parse(msg)
               body = RouterChannel.respond_to(path, data)
               settings._websockets[request.path].each{|s| s.send(body) }

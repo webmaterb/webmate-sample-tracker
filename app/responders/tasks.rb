@@ -1,9 +1,10 @@
 class Responders::Tasks < Webmate::Responders::Base
   def list
-    "Hello Tasks"
+    Task.all
   end
 
   def create
+    puts data.inspect
     "Create task"
   end
 end

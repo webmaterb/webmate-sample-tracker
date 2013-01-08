@@ -4,7 +4,7 @@ class Webmate.Client
     @bindings = {}
     @channel = channel
     @fullPath = "#{location.host}/#{channel}"
-    if !window.WebSocket
+    if window.WebSocket
       @websocket = new WebSocket("ws://#{@fullPath}")
       @websocket.onmessage = (e)->
         response = JSON.parse(e.data)
