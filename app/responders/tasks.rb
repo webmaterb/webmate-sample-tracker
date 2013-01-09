@@ -1,5 +1,5 @@
 class Responders::Tasks < Webmate::Responders::Base
-  def list
+  def read
     Task.all
   end
 

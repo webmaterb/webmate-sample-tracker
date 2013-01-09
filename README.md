@@ -13,7 +13,6 @@ Webmate will be moved to separate gem after releasing alpha version.
 ## Client Websocket sample:
 
 ```
-client = Webmate.connect('projects/123')
-client.on('tasks/list', function(data) {console.log(data)})
-client.send('tasks/list', {gvalmon: "Hello"})
+App.main = new App.Views.Main()
+App.main.start()
 ```

@@ -1,5 +1,5 @@
 class Webmate.Client
-  constructor: (channel) ->
+  constructor: (channel, callback) ->
     self = @
     @bindings = {}
     @channel = channel
@@ -11,6 +11,8 @@ class Webmate.Client
         eventBinding = self.bindings[response.action]
         _.each eventBinding, (binding)->
           binding(response.data)
+      @websocket.onopen = (e)->
+        callback()
     else
       console.log("Websocket not supported. Using http.")
     @
@@ -29,5 +31,6 @@ class Webmate.Client
         console.log(data)
     @
 
-Webmate.connect = (channel)->
-  new Webmate.Client(channel)
+Webmate.connect = (channel, callback)->
+  client = new Webmate.Client(channel, callback)
+  Webmate.channels[channel] = client

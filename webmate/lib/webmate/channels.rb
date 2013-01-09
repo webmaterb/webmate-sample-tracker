@@ -48,6 +48,7 @@ module Webmate
         end
 
         def respond_to(path, data)
+          puts "#{path}: process #{data[:action]}"
           self.channels[path][data[:action]][:responder].new(data).respond
         end
       end

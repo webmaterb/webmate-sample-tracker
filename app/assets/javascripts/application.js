@@ -1,9 +1,10 @@
 //= require libs/jquery
-//= require libs/underscore
-//= require libs/backbone
-//= require libs/backbone_webmate
+
+//= require libs/webmate/libs/underscore
+//= require libs/webmate/libs/backbone
 //= require libs/webmate/init
 //= require libs/webmate/client
+//= require libs/webmate/backbone_ext/sync
 
 //= require_tree ./models
 //= require_tree ./collections
