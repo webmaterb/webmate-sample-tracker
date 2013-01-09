@@ -15,6 +15,7 @@ class Webmate.Client
         callback()
     else
       console.log("Websocket not supported. Using http.")
+      callback()
     @
   on: (action, callback)->
     @bindings[action] = [] if !@bindings[action]
