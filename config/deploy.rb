@@ -10,7 +10,3 @@ set :scm, :git
 
 before  'deploy:assets:precompile', 'db:create_symlink'
 after   'deploy:create_symlink', 'deploy:cleanup'
-
-# local precompile assets
-before  'deploy:finalize_update', 'deploy:assets:symlink'
-after   'deploy:update_code', 'deploy:assets:precompile'

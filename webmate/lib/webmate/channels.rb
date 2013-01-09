@@ -19,7 +19,8 @@ module Webmate
             end
           end
           ws.onclose do
-            warn("websocket closed")
+            # TODO: solve issue with "execution expired"
+            # warn("websocket closed")
             settings._websockets[request.path].delete(ws)
           end
         end
@@ -48,7 +49,8 @@ module Webmate
         end
 
         def respond_to(path, data)
-          puts "#{path}: process #{data[:action]}"
+          # TODO: solve issue with "execution expired"
+          # puts "#{path}: process #{data[:action]}"
           self.channels[path][data[:action]][:responder].new(data).respond
         end
       end

@@ -45,6 +45,8 @@
       options.complete = (jqXHR, textStatus) ->
         model.trigger "sync:end"
         complete jqXHR, textStatus  if complete
+        # TODO: remove this hack after implementing interface for events
+        window.responseReceived = true
       $.ajax(params)
 
 ).call(this)
