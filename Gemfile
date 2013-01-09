@@ -21,6 +21,11 @@ group :assets do
   gem 'coffee-script'
 end
 
+group :development do
+  gem 'capistrano', '2.13.5'
+  gem 'capistrano-rbenv', '0.0.8'
+end
+
 group :test do
     gem 'rspec'
     gem 'rack-test', :require => "rack/test"
