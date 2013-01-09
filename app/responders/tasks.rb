@@ -1,7 +1,6 @@
 class Responders::Tasks < Webmate::Responders::Base
   def read
-    #Task.all
-    []
+    Task.all
   end
 
   def create

@@ -14,21 +14,24 @@ module Webmate
           ws.onmessage do |msg|
             EM.synchrony do
               data = Yajl::Parser.new(symbolize_keys: true).parse(msg)
+              puts "WebSocket #{path} #{data[:action]}"
               body = RouterChannel.respond_to(path, data)
               settings._websockets[request.path].each{|s| s.send(body) }
             end
           end
           ws.onclose do
-            # TODO: solve issue with "execution expired"
-            # warn("websocket closed")
+            warn("websocket closed")
             settings._websockets[request.path].delete(ws)
           end
         end
       end
       channel.routes.each do |route|
         responder_block = lambda do
-          data = params.merge({action: route[:action]})
-          route[:responder].new(data).respond
+          puts "HTTP #{route[:method]} #{route[:route]}"
+          EM.synchrony do
+            data = params.merge({action: route[:action]})
+            route[:responder].new(data).respond
+          end
         end
         send(route[:method], route[:route], {}, &responder_block)
       end
@@ -49,8 +52,6 @@ module Webmate
         end
 
         def respond_to(path, data)
-          # TODO: solve issue with "execution expired"
-          # puts "#{path}: process #{data[:action]}"
           self.channels[path][data[:action]][:responder].new(data).respond
         end
       end
