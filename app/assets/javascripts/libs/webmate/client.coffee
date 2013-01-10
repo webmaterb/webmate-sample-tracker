@@ -32,9 +32,14 @@ class Webmate.Client
         console.log(data)
     @
   bindDefaultEvents: (connection)->
-    @on 'tasks/read', (data)->
-      App.tasks.reset(data);
-      App.tasks.trigger "sync", App.tasks, data
+    self = @
+    _.each App.Collections, (collectionClass)->
+      obj = new collectionClass()
+      collectionName = obj.collectionName()
+      self.on "#{collectionName}/read", (data)->
+        collectionInstance = App[collectionName]
+        collectionInstance.reset(data);
+        collectionInstance.trigger "sync", collectionInstance, data
 
 Webmate.connect = (channel, callback)->
   client = new Webmate.Client(channel, callback)

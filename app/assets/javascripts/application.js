@@ -6,6 +6,7 @@
 //= require libs/webmate/init
 //= require libs/webmate/client
 //= require libs/webmate/backbone_ext/sync
+//= require libs/webmate/backbone_ext/resources
 
 //= require_tree ./models
 //= require_tree ./collections

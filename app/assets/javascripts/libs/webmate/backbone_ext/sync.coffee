@@ -6,9 +6,13 @@
     delete: "DELETE"
     read: "GET"
 
-  getUrl = (object) ->
-    return null unless object and object.url
-    (if _.isFunction(object.url) then object.url() else object.url)
+  getUrl = (object, method) ->
+    channel = _.result(object, "channel")
+    if channel
+      "/#{channel}/#{object.collectionName()}/#{method}"
+    else
+      return null unless object and object.url
+      (if _.isFunction(object.url) then object.url() else object.url)
 
   getChannel = (object) ->
     return null unless object and object.channel
@@ -23,8 +27,8 @@
       client = Webmate.channels[getChannel(model)]
       if model and (method is "create" or method is "update" or method is 'patch')
         data = {}
-        data[model.paramRoot] = model.toJSON()
-      client.send("#{model.paramRoot}s/#{method}", data, type)
+        data[model.resourceName()] = model.toJSON()
+      client.send("#{model.collectionName()}/#{method}", data, type)
     else
       # Default options, unless specified.
       _.defaults options or (options = {}),
@@ -37,7 +41,7 @@
         dataType: "json"
 
       # Ensure that we have a URL.
-      params.url = _.result(model, "url") or urlError()  unless options.url
+      params.url = getUrl(model, method) or urlError()
 
       # Ensure that we have the appropriate request data.
       if not options.data? and model and (method is "create" or method is "update" or method is "patch")
