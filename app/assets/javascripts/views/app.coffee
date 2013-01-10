@@ -3,11 +3,8 @@ App.Views.Main = Backbone.View.extend
     self = this
     @client = Webmate.connect 'projects/123', ->
       App.tasks = new App.Collections.Tasks()
-      self.benchmarkWebsocket()
-
-    # subscribe to receiving data from websockets
-    # @client.on 'tasks/read', (data)->
-    #   console.log(data)
+      App.tasks.fetch()
+      #self.benchmarkWebsocket()
 
   benchmarkWebsocket: ->
     console.log("Benchmark using websockets:")

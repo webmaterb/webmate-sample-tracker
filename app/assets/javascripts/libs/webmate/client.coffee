@@ -31,7 +31,13 @@ class Webmate.Client
       $.ajax("http://#{@fullPath}/#{action}", type: method).success (data)->
         console.log(data)
     @
+  bindDefaultEvents: (connection)->
+    @on 'tasks/read', (data)->
+      App.tasks.reset(data);
+      App.tasks.trigger "sync", App.tasks, data
 
 Webmate.connect = (channel, callback)->
   client = new Webmate.Client(channel, callback)
   Webmate.channels[channel] = client
+  client.bindDefaultEvents()
+  client

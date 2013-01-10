@@ -21,32 +21,58 @@
     type = methodMap[method]
     if window.WebSocket
       client = Webmate.channels[getChannel(model)]
-      if model and (method is "create" or method is "update")
+      if model and (method is "create" or method is "update" or method is 'patch')
         data = {}
         data[model.paramRoot] = model.toJSON()
       client.send("#{model.paramRoot}s/#{method}", data, type)
     else
-      params = _.extend(
+      # Default options, unless specified.
+      _.defaults options or (options = {}),
+        emulateHTTP: Backbone.emulateHTTP
+        emulateJSON: Backbone.emulateJSON
+
+      # Default JSON-request options.
+      params =
         type: type
         dataType: "json"
-        beforeSend: (xhr) ->
-          token = $("meta[name=\"csrf-token\"]").attr("content")
-          xhr.setRequestHeader "X-CSRF-Token", token  if token
-          model.trigger "sync:start"
-      , options)
-      params.url = getUrl(model) or urlError()  unless params.url
-      if not params.data and model and (method is "create" or method is "update")
+
+      # Ensure that we have a URL.
+      params.url = _.result(model, "url") or urlError()  unless options.url
+
+      # Ensure that we have the appropriate request data.
+      if not options.data? and model and (method is "create" or method is "update" or method is "patch")
         params.contentType = "application/json"
-        data = {}
-        data[model.paramRoot] = model.toJSON()
-        params.data = JSON.stringify(data)
-      params.processData = false  if params.type isnt "GET"
-      complete = options.complete
-      options.complete = (jqXHR, textStatus) ->
-        model.trigger "sync:end"
-        complete jqXHR, textStatus  if complete
-        # TODO: remove this hack after implementing interface for events
-        window.responseReceived = true
-      $.ajax(params)
+        params.data = JSON.stringify(options.attrs or model.toJSON(options))
+
+      # For older servers, emulate JSON by encoding the request into an HTML-form.
+      if options.emulateJSON
+        params.contentType = "application/x-www-form-urlencoded"
+        params.data = (if params.data then model: params.data else {})
+
+      # For older servers, emulate HTTP by mimicking the HTTP method with `_method`
+      # And an `X-HTTP-Method-Override` header.
+      if options.emulateHTTP and (type is "PUT" or type is "DELETE" or type is "PATCH")
+        params.type = "POST"
+        params.data._method = type  if options.emulateJSON
+        beforeSend = options.beforeSend
+        options.beforeSend = (xhr) ->
+          xhr.setRequestHeader "X-HTTP-Method-Override", type
+          beforeSend.apply this, arguments_  if beforeSend
+
+      # Don't process data on a non-GET request.
+      params.processData = false  if params.type isnt "GET" and not options.emulateJSON
+      success = options.success
+      options.success = (resp, status, xhr) ->
+        success resp.data, status, xhr  if success
+        model.trigger "sync", model, resp.data, options
+
+      error = options.error
+      options.error = (xhr, status, thrown) ->
+        error model, xhr, options  if error
+        model.trigger "error", model, xhr, options
+
+      # Make the request, allowing the user to override any Ajax options.
+      xhr = Backbone.ajax(_.extend(params, options))
+      model.trigger "request", model, xhr, options
 
 ).call(this)
