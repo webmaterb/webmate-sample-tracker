@@ -1,0 +1,11 @@
+/* GLOBAL */
+html { background: url('bg.jpg') 0 0 repeat #aaa; }
+body { font: 400 12px/1.2 'Open Sans', Tahoma, Arial, sans-serif; }
+
+#wrapper {
+  width: 930px;
+  padding: 15px;
+  margin: 40px auto;
+  background: #fff;
+  min-height: 400px;
+}
