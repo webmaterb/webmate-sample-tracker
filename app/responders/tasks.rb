@@ -4,7 +4,6 @@ class Responders::Tasks < Webmate::Responders::Base
   end
 
   def create
-    puts data.inspect
     "Create task"
   end
 end
