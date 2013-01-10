@@ -7,10 +7,10 @@ class Webmate.Client
     if window.WebSocket
       @websocket = new WebSocket("ws://#{@fullPath}")
       @websocket.onmessage = (e)->
-        response = JSON.parse(e.data)
-        eventBinding = self.bindings[response.action]
+        data = JSON.parse(e.data)
+        eventBinding = self.bindings[data.action]
         _.each eventBinding, (binding)->
-          binding(response.data)
+          binding(data.response)
       @websocket.onopen = (e)->
         callback()
     else
@@ -35,11 +35,13 @@ class Webmate.Client
     self = @
     _.each App.Collections, (collectionClass)->
       obj = new collectionClass()
+      return unless obj
       collectionName = obj.collectionName()
-      self.on "#{collectionName}/read", (data)->
+      self.on "#{collectionName}/read", (response)->
         collectionInstance = App[collectionName]
-        collectionInstance.reset(data);
-        collectionInstance.trigger "sync", collectionInstance, data
+        return unless collectionInstance
+        collectionInstance.reset(response);
+        collectionInstance.trigger "sync", collectionInstance, response
 
 Webmate.connect = (channel, callback)->
   client = new Webmate.Client(channel, callback)

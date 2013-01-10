@@ -67,8 +67,8 @@
       params.processData = false  if params.type isnt "GET" and not options.emulateJSON
       success = options.success
       options.success = (resp, status, xhr) ->
-        success resp.data, status, xhr  if success
-        model.trigger "sync", model, resp.data, options
+        success resp.response, status, xhr  if success
+        model.trigger "sync", model, resp.response, options
 
       error = options.error
       options.error = (xhr, status, thrown) ->

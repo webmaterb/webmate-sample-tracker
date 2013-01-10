@@ -10,11 +10,16 @@ require 'webmate/support/thin'
 require 'webmate/support/sprockets'
 require 'webmate/responders/base'
 require 'webmate/services/base'
+require 'webmate/observers/base'
+require 'webmate/decorators/base'
 
 module Responders
 end
-
 module Services
+end
+module Decorators
+end
+module Observers
 end
 
 configatron.app.load_paths.each do |path|
