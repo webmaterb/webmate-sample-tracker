@@ -4,6 +4,6 @@ class Responders::Tasks < Webmate::Responders::Base
   end
 
   def create
-    "Create task"
+    Task.create(params[:task])
   end
 end

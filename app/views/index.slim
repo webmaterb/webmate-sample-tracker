@@ -1,1 +1,11 @@
 h2 Tasks
+#create-task
+  input#create-task-input type="text" placeholder="Task title"
+  input#create-task-submit type="submit" value="Create task"
+ul#tasks-list
+
+script type="text/x-icanhaz" id="tpl_task"
+  .title {{title}}
+
+script type="text/javascript"
+  | $(function () { App.main = new App.Views.Main(); App.main.start() })
