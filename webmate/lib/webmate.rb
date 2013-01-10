@@ -6,7 +6,8 @@ Bundler.require(:default, ENV["RACK_ENV"].to_sym)
 
 require 'webmate/config'
 require 'webmate/channels'
-require 'webmate/sprockets'
+require 'webmate/support/thin'
+require 'webmate/support/sprockets'
 require 'webmate/responders/base'
 require 'webmate/services/base'
 
@@ -21,6 +22,7 @@ configatron.app.load_paths.each do |path|
 end
 
 class Sinatra::Base
+  disable :threaded
   register Webmate::Channels
   helpers Sinatra::Sprockets::Helpers
   set :_websockets, {}

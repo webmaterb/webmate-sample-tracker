@@ -5,7 +5,7 @@ require 'sinatra-websocket'
 require 'closure-compiler'
 require 'yui/compressor'
 require 'slim/logic_less'
-
+require 'em-synchrony/mongo'
 require 'webmate'
 
 class WebmateApp < Sinatra::Base; end;

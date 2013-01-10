@@ -12,12 +12,10 @@ module Webmate
             settings._websockets[request.path] << ws
           end
           ws.onmessage do |msg|
-            EM.synchrony do
-              data = Yajl::Parser.new(symbolize_keys: true).parse(msg)
-              puts "WebSocket #{path} #{data[:action]}"
-              body = RouterChannel.respond_to(path, data)
-              settings._websockets[request.path].each{|s| s.send(body) }
-            end
+            data = Yajl::Parser.new(symbolize_keys: true).parse(msg)
+            puts "WebSocket #{path} #{data[:action]}"
+            body = RouterChannel.respond_to(path, data)
+            settings._websockets[request.path].each{|s| s.send(body) }
           end
           ws.onclose do
             warn("websocket closed")
@@ -27,11 +25,8 @@ module Webmate
       end
       channel.routes.each do |route|
         responder_block = lambda do
-          puts "HTTP #{route[:method]} #{route[:route]}"
-          EM.synchrony do
-            data = params.merge({action: route[:action]})
-            route[:responder].new(data).respond
-          end
+          data = params.merge({action: route[:action]})
+          route[:responder].new(data).respond
         end
         send(route[:method], route[:route], {}, &responder_block)
       end

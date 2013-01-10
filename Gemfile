@@ -10,7 +10,9 @@ gem 'thin'
 gem 'yajl-ruby'
 gem 'configatron'
 gem 'slim'
-gem 'mongoid'
+gem 'bson_ext'
+gem 'mongoid', '2.5.1'
+gem 'em-synchrony', git: 'git://github.com/igrigorik/em-synchrony.git'
 
 group :assets do
   gem 'therubyracer', '0.10.2'
