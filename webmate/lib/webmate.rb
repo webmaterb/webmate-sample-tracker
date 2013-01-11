@@ -14,6 +14,7 @@ if ENV["RACK_ENV"] == 'development'
   Bundler.require(:assets)
 end
 
+require 'webmate/env'
 require 'webmate/config'
 require 'webmate/channels'
 require 'webmate/support/thin'
@@ -28,6 +29,8 @@ module Services; end;
 module Decorators; end;
 module Observers; end;
 
+require "#{WEBMATE_ROOT}/config/config"
+
 class Sinatra::Base
   disable :threaded
   register Webmate::Channels
@@ -38,11 +41,9 @@ class Sinatra::Base
   set :views, Proc.new { File.join(root, 'app', "views") }
 end
 
-require "#{WEBMATE_ROOT}/config/config"
 configatron.app.load_paths.each do |path|
   Dir["#{WEBMATE_ROOT}/#{path}/**/*.rb"].each { |app_class| load(app_class) }
 end
-require "#{WEBMATE_ROOT}/config/application"
 
 Sinatra::Sprockets.configure do |config|
   config.app = Sinatra::Base
@@ -51,8 +52,11 @@ Sinatra::Sprockets.configure do |config|
     config.append_path(File.join('app', 'assets', dir))
   end
   config.precompile = [ /\w+\.(?!js|css).+/, /application.(css|js)/ ]
-  config.compress = false
+  config.compress = configatron.assets.compress
+  config.debug = configatron.assets.debug
 end
 
 path = File.expand_path("#{WEBMATE_ROOT}/config/initializers/*.rb")
 Dir[path].each { |initializer| require(initializer) }
+
+require "#{WEBMATE_ROOT}/config/application"
