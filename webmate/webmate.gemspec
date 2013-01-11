@@ -16,4 +16,13 @@ Gem::Specification.new do |gem|
   gem.files         = `git ls-files`.split($/)
   gem.executables   = "webmate"
   gem.require_paths = ["lib"]
+
+  gem.add_dependency("thin")
+  gem.add_dependency("em-synchrony")
+  gem.add_dependency("sinatra")
+  gem.add_dependency("sinatra-synchrony")
+  gem.add_dependency("sinatra-contrib")
+  gem.add_dependency("sinatra-websocket")
+  gem.add_dependency("yajl-ruby")
+  gem.add_dependency("configatron")
 end
