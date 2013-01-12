@@ -1,4 +1,5 @@
 //= require libs/jquery
+//= require libs/jquery-ui
 //= require webmate
 
 //= require_tree ./models

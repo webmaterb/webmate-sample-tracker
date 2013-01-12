@@ -5,7 +5,7 @@ App.Views.Task = Backbone.View.extend
   initialize: ->
     @model.on "change", @render, @
     @model.view = this
-    $.data @el, "message", @
+    $.data @el, "view", @
     @
 
   render: ->

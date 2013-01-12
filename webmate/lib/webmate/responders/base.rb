@@ -7,14 +7,22 @@ module Webmate::Responders
       @action = params[:action]
     end
 
+    def action_method
+      action.split('/').last
+    end
+
     def respond
-      response = self.send(action.split('/').last)
-      async do
-        Webmate::Observers::Base.execute_all(
-          @action, {action: @action, response: response, params: params}
-        )
+      if respond_to?(action_method)
+        response = self.send(action_method)
+        async do
+          Webmate::Observers::Base.execute_all(
+            @action, {action: @action, response: response, params: params}
+          )
+        end
+        [200, wrap_response(response)]
+      else
+        [404, wrap_response(action: @action, response: "Action ", params: params)]
       end
-      wrap_response(response)
     end
 
     def wrap_response(response)

@@ -23,25 +23,24 @@
 
   window.Backbone.sync = (method, model, options) ->
     type = methodMap[method]
+    data = {}
+    if model and (method is "create" or method is "update" or method is 'patch')
+      data[model.resourceName()] = (options.attrs || model.toJSON())
+    if model and (method is "destroy" or method is "update" or method is 'patch')
+      data[model.idAttribute] = model.id
+      delete data[model.resourceName()][model.idAttribute]
     if window.WebSocket
       client = Webmate.channels[getChannel(model)]
-      if model and (method is "create" or method is "update" or method is 'patch')
-        data = {}
-        data[model.resourceName()] = (options.attrs || model.toJSON())
       client.send("#{model.collectionName()}/#{method}", data, type)
     else
       params =
         type: type
         dataType: "json"
-        data: {}
 
       # Ensure that we have a URL.
       params.url = getUrl(model, method) or urlError()
-      # Ensure that we have the appropriate request data.
-      if model and (method is "create" or method is "update" or method is "patch")
-        params.contentType = "application/json"
-        params.data[model.resourceName()] = (options.attrs || model.toJSON())
-      params.data = JSON.stringify(params.data)
+      params.contentType = "application/json"
+      params.data = JSON.stringify(data)
 
       # Don't process data on a non-GET request.
       params.processData = false if params.type isnt "GET"

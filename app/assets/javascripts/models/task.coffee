@@ -1,3 +1,5 @@
 App.Models.Task = Backbone.Model.extend
   defaults:
-    text: ''
+    status: 'backlog'
+  setStatus: (status)->
+    @save(status: status)

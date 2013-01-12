@@ -2,7 +2,17 @@
   input#create-task-input.input-string type="text" placeholder="Task Title"
   input#create-task-submit.button type="submit" value="Create Task"
 .clear
-ul#tasks-list
+#tasks-lists
+  .tasks-list-container
+    h3 Backlog
+    ul#tasks-list-backlog.tasks-list rel="backlog"
+  .tasks-list-container
+    h3 Current
+    ul#tasks-list-current.tasks-list rel="current"
+  .tasks-list-container
+    h3 Completed
+    ul#tasks-list-completed.tasks-list rel="completed"
+.clear
 
 script type="text/x-icanhaz" id="tpl_task"
   .title {{title}}

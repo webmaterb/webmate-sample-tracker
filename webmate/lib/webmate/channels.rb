@@ -16,8 +16,10 @@ module Webmate
             puts "WebSocket #{path} #{data[:action]}"
             puts "Params: #{data.inspect}"
             puts ""
-            body = RouterChannel.respond_to(path, data)
-            settings._websockets[request.path].each{|s| s.send(body) }
+            response = RouterChannel.respond_to(path, data)
+            if response.first == 200
+              settings._websockets[request.path].each{|s| s.send(response.last) }
+            end
           end
           ws.onclose do
             warn("websocket closed")
@@ -28,7 +30,9 @@ module Webmate
       channel.routes.each do |route|
         responder_block = lambda do
           data = params.merge({action: route[:action]})
-          route[:responder].new(data).respond
+          response = route[:responder].new(data).respond
+          status, body = *response
+          status == 200 ? body : [status, {}, body]
         end
         send(route[:method], route[:route], {}, &responder_block)
       end
