@@ -5,7 +5,7 @@ class Responders::Tasks < Webmate::Responders::Base
 
   def create
     task = Task.new(params[:task])
-    task.user_id = current_user.id
+    task.user_id = current_user._id
     task.save
     task
   end
