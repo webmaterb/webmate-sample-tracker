@@ -26,4 +26,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency("yajl-ruby")
   gem.add_dependency("configatron")
   gem.add_dependency("rack-contrib")
+  gem.add_dependency("warden")
+  gem.add_dependency("sinatra_more")
 end

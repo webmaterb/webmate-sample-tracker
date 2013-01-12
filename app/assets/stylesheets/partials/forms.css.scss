@@ -1,0 +1,29 @@
+.button {
+  -webkit-box-shadow: 0 0 0 3px #84B431;
+  -moz-box-shadow: 0 0 0 3px #84b431;
+  box-shadow: 0 0 0 3px #84B431;
+  box-shadow: 0 0 0 3px #84B431, 0 1px 0 3px #AEAEA5;
+  -webkit-box-shadow: 0 0 0 3px #84B431,0 1px 0 3px #AEAEA5;
+  -moz-box-shadow: 0 0 0 3px #84b431,0 1px 0 3px #aeaea5;
+  background: #84B431;
+  border: 1px solid #B2CD81;
+  text-shadow: 0 -1px 0 #678C26;
+  border-radius: 4px;
+  height: 30px;
+  padding: 0 15px;
+  font-size: 19px;
+  color: #E9E8E1;
+  cursor: pointer;
+}
+.input-string {
+  background: #F3F3EF;
+  border-width: 0 0 1px 0;
+  border-bottom: 1px dotted #84B431;
+  font-size: 20px;
+  height: 35px;
+  padding-left: 10px;
+  color: #444 !important;
+  width: 400px;
+  display: block;
+  margin-bottom: 10px;
+}
