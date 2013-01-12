@@ -3,6 +3,7 @@ ENV["RACK_ENV"] ||= "development"
 require "sinatra"
 require "sinatra/synchrony"
 require "sinatra/contrib"
+require "sinatra/reloader"
 require "sinatra-websocket"
 require "yajl"
 require "configatron"
@@ -35,11 +36,21 @@ require "#{WEBMATE_ROOT}/config/config"
 class Sinatra::Base
   disable :threaded
   register Webmate::Channels
+  register Sinatra::Reloader
   helpers Sinatra::Sprockets::Helpers
   set :_websockets, {}
   set :public_path, '/public'
   set :root, WEBMATE_ROOT
   set :views, Proc.new { File.join(root, 'app', "views") }
+  set :reloader, !configatron.app.cache_classes
+  # auto-reloading dirs
+  also_reload("#{WEBMATE_ROOT}/config/config.rb")
+  also_reload("#{WEBMATE_ROOT}/config/application.rb")
+  configatron.app.load_paths.each do |path|
+    Dir["#{WEBMATE_ROOT}/#{path}/**/*.rb"].each do |app_file|
+      also_reload(app_file)
+    end
+  end
 end
 
 configatron.app.load_paths.each do |path|

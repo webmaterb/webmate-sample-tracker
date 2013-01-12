@@ -1,6 +1,6 @@
 class WebmateApp < Sinatra::Base
   get '/' do
-    slim :index, layout: :layouts
+    slim :index, layout: :layout
   end
 
   channel "projects/:project_id" do
