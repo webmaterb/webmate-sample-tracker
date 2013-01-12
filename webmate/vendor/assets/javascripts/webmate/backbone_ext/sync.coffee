@@ -30,6 +30,8 @@
       data[model.idAttribute] = model.id
       delete data[model.resourceName()][model.idAttribute]
     if window.WebSocket
+      token = $('meta[name="websocket-token"]').attr('content')
+      data.user_websocket_token = token
       client = Webmate.channels[getChannel(model)]
       client.send("#{model.collectionName()}/#{method}", data, type)
     else

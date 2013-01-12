@@ -26,6 +26,10 @@ module Webmate
         warden.set_user(new_user, opts)
       end
 
+      def get_user_for_authentication(scope)
+        warden.user(scope)
+      end
+
       # Require authorization for an action
       def authenticate!(scope)
         unless authenticated?(scope)

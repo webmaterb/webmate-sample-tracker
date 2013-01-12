@@ -15,11 +15,15 @@ module Webmate
             end
 
             def current_#{scope}
-              @current_#{scope} ||= warden.user(:#{scope})
+              @current_#{scope} ||= get_user_for_authentication(:#{scope})
             end
 
-            def #{scope}_session
-              current_#{scope} && warden.session(:#{scope})
+            def #{scope}_websocket_token
+              if #{scope}_signed_in?
+                current_#{scope}.websocket_token_with_id
+              else
+                ""
+              end
             end
           METHODS
         end
