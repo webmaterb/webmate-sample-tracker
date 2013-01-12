@@ -12,7 +12,7 @@ module Webmate
         field :encrypted_password
         field :websocket_token
 
-        validates :email, presence: true
+        validates :email, presence: true, uniqueness: true
         validates :encrypted_password, presence: true, confirmation: true
         attr_reader :password
 
@@ -25,7 +25,7 @@ module Webmate
       end
 
       def websocket_token_encrypted
-        BCrypt::Password.create(websocket_token_hash)
+        Digest::MD5.hexdigest(websocket_token_hash)
       end
 
       def websocket_token_with_id
@@ -55,7 +55,7 @@ module Webmate
           user_id, token = token_with_id.to_s.split(':')
           user = find(user_id)
           return unless user
-          auth = BCrypt::Password.new(token) == user.websocket_token_hash
+          auth = token == Digest::MD5.hexdigest(user.websocket_token_hash)
           auth ? user : nil
         rescue BCrypt::Errors::InvalidHash
           nil

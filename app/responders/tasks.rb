@@ -1,10 +1,13 @@
 class Responders::Tasks < Webmate::Responders::Base
   def read
-    Task.all
+    current_user.tasks
   end
 
   def create
-    Task.create(params[:task])
+    task = Task.new(params[:task])
+    task.user_id = current_user.id
+    task.save
+    task
   end
 
   def update
