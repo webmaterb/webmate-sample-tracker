@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'em-synchrony'
+gem 'rack-contrib'
 gem 'sinatra'
 gem 'sinatra-synchrony'
 gem 'sinatra-contrib'

@@ -25,4 +25,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency("sinatra-websocket")
   gem.add_dependency("yajl-ruby")
   gem.add_dependency("configatron")
+  gem.add_dependency("rack-contrib")
 end

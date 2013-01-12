@@ -6,6 +6,7 @@ require "sinatra/contrib"
 require "sinatra-websocket"
 require "yajl"
 require "configatron"
+require "rack/contrib/post_body_content_type_parser"
 
 require 'bundler'
 Bundler.setup

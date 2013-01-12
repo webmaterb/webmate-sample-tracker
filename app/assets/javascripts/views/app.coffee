@@ -3,6 +3,9 @@ App.Views.Main = Backbone.View.extend
     @$list = $('#tasks-list')
     $("#create-task-submit").on 'click', ->
       App.main.createTask()
+    $("#create-task-input").on 'keypress', (e)->
+      if e.keyCode is 13
+        App.main.createTask()
 
     App.tasks = new App.Collections.Tasks()
     App.tasks.on "add", @addTask, @

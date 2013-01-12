@@ -5,4 +5,5 @@ map '/assets' do
 end
 
 use Rack::CommonLogger
+use Rack::PostBodyContentTypeParser
 run WebmateApp
