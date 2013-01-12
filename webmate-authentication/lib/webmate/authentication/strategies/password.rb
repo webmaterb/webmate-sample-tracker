@@ -4,10 +4,6 @@ module Webmate
       class Password < Warden::Strategies::Base
         attr_accessor :scope
 
-        def initialize(env, scope)
-          @scope = scope
-        end
-
         def resource_class
           User
         end
@@ -22,11 +18,11 @@ module Webmate
         end
 
         def username
-          "test" || params[:email]
+          params[scope.to_s]["email"]
         end
 
         def password
-          "test" || params[:password]
+          params[scope.to_s]["password"]
         end
 
         class << self

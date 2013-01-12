@@ -18,7 +18,9 @@ class User
 
   class << self
     def authenticate(email, password)
-      User.first
+      user = where(email: email).first
+      auth = BCrypt::Password.new(user.encrypted_password) == "#{password}#{PASSWORD_SALT}"
+      auth ? user : nil
     end
   end
 end
