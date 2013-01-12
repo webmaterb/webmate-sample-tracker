@@ -17,7 +17,7 @@ module Webmate
               puts "WebSocket #{path} #{data[:action]}"
               puts "Params: #{data.inspect}"
               puts ""
-              response = RouterChannel.respond_to(path, data)
+              response = RouterChannel.respond_to(path, request, data)
               if response.first == 200
                 settings._websockets[request.path].each{|s| s.send(response.last) }
               end
@@ -31,7 +31,7 @@ module Webmate
         channel.routes.each do |route|
           responder_block = lambda do
             data = params.merge({action: route[:action]})
-            response = route[:responder].new(data).respond
+            response = route[:responder].new(request, data).respond
             status, body = *response
             status == 200 ? body : [status, {}, body]
           end
@@ -53,8 +53,8 @@ module Webmate
             self.channels[path][action] = options
           end
 
-          def respond_to(path, data)
-            self.channels[path][data[:action]][:responder].new(data).respond
+          def respond_to(path, request, data)
+            self.channels[path][data[:action]][:responder].new(request, data).respond
           end
         end
 

@@ -1,8 +1,9 @@
 module Webmate::Responders
   class Base
-    attr_accessor :action, :params
+    attr_accessor :action, :params, :request
 
-    def initialize(params)
+    def initialize(request, params)
+      @request = request
       @params = params
       @action = params[:action]
     end
