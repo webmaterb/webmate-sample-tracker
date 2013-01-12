@@ -24,4 +24,5 @@ App.Views.Main = Backbone.View.extend
   createTask: ->
     title = $("#create-task-input").val()
     App.tasks.create(title: title)
+    $("#create-task-input").val('')
     @

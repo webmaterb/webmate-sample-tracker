@@ -1,0 +1,21 @@
+#create-task-input {
+  width: 650px;
+  margin-right: 5px;
+  float: left;
+  margin-top: 0;
+}
+#create-task-submit {
+  float: left;
+  margin-top: 2px;
+}
+#tasks-list {
+  .task {
+    background: #E4EFCF;
+    border: 1px solid #D2DBBF;
+    font-size: 14px;
+    list-style: none;
+    padding: 8px 8px 6px 8px;
+    margin: 7px 0 0 0;
+    border-radius: 3px;
+  }
+}
