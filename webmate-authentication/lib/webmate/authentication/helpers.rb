@@ -31,7 +31,7 @@ module Webmate
       def authenticate!(scope)
         unless authenticated?(scope)
           session[:return_to] = request.path
-          redirect(settings.auth_failure_path)
+          redirect(configatron.authentication.failure_path)
         end
       end
 
@@ -75,18 +75,17 @@ module Webmate
 
         post "/#{collection_name}/sign_in" do
           authenticate(scope: scope)
-          redirect session[:return_to] ? session.delete(:return_to) : options.auth_success_path
+          redirect session[:return_to] ? session.delete(:return_to) : configatron.authentication.success_path
         end
 
         post "/#{collection_name}/unauthenticated" do
-          #redirect "/"
-          puts "error"
+          redirect configatron.authentication.failure_path
         end
 
-        get "/#{collection_name}/logout/" do
-          authenticate!
-          sign_out(":#{scope}")
-          redirect options.auth_success_path
+        get "/#{collection_name}/sign_out" do
+          authenticate(scope: scope)
+          sign_out(scope)
+          redirect configatron.authentication.logout_path
         end
       end
 
@@ -107,14 +106,6 @@ module Webmate
         end
         Warden::Manager.before_failure { |env, opts| env['REQUEST_METHOD'] = "POST" }
         Warden::Strategies.add(:password, Webmate::Authentication::Strategies::Password)
-
-        app.set :auth_failure_path, '/'
-        app.set :auth_success_path, '/'
-
-        app.set :auth_error_message,   "Could not log you in."
-        app.set :auth_success_message, "You have logged in successfully."
-        app.set :auth_template_renderer, :haml
-        app.set :auth_login_template, :login
       end
     end
   end

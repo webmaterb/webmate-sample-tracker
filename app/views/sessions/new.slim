@@ -1,5 +1,8 @@
 h2 Sign In
-form action="/#{collection_name}/sign_in" method="POST"
-  input.input-string type="text" name="#{resource_name}[email]" placeholder="E-mail"
-  input.input-string type="password" name="#{resource_name}[password]" placeholder="Password"
-  input.button type="submit" value="Sign In"
+#sessions-new
+  form action="/#{collection_name}/sign_in" method="POST"
+    input.input-string type="text" name="#{resource_name}[email]" placeholder="E-mail"
+    input.input-string type="password" name="#{resource_name}[password]" placeholder="Password"
+    input.button type="submit" value="Sign In"
+    .links
+      a href="/users/sign_up" Sign up
