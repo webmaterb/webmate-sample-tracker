@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["gvalmon@gmail.com"]
   gem.description   = %q{Real-time web application framework in Ruby}
   gem.summary       = %q{Real-time web application framework in Ruby}
-  gem.homepage      = "https://github.com/droidlabs/webmate"
+  gem.homepage      = "https://github.com/webmate/webmate"
   gem.license       = "MIT"
 
   gem.files         = `git ls-files`.split($/)
@@ -26,6 +26,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency("yajl-ruby")
   gem.add_dependency("configatron")
   gem.add_dependency("rack-contrib")
-  gem.add_dependency("warden")
   gem.add_dependency("sinatra_more")
 end

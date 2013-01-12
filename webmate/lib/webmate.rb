@@ -10,6 +10,10 @@ require "configatron"
 require "rack/contrib/post_body_content_type_parser"
 require "yajl"
 
+require 'webmate/env'
+require 'webmate/application'
+require 'webmate/config'
+
 require 'bundler'
 Bundler.setup
 Bundler.require(:default, ENV["RACK_ENV"].to_sym)
@@ -17,8 +21,6 @@ if ENV["RACK_ENV"] == 'development'
   Bundler.require(:assets)
 end
 
-require 'webmate/env'
-require 'webmate/config'
 require 'webmate/support/thin'
 require 'webmate/support/sprockets'
 require 'webmate/responders/base'
@@ -33,8 +35,11 @@ module Decorators; end;
 module Observers; end;
 
 require "#{WEBMATE_ROOT}/config/config"
+configatron.app.load_paths.each do |path|
+  Dir["#{WEBMATE_ROOT}/#{path}/**/*.rb"].each { |app_class| require_relative(app_class) }
+end
 
-class Sinatra::Base
+class Webmate::Application
   disable :threaded
   register Webmate::RouteHelpers::Channels
   register Sinatra::Reloader
@@ -56,12 +61,8 @@ class Sinatra::Base
   end
 end
 
-configatron.app.load_paths.each do |path|
-  Dir["#{WEBMATE_ROOT}/#{path}/**/*.rb"].each { |app_class| require_relative(app_class) }
-end
-
 Sinatra::Sprockets.configure do |config|
-  config.app = Sinatra::Base
+  config.app = Webmate::Application
   ['stylesheets', 'javascripts', 'images'].each do |dir|
     # require application assets
     config.append_path(File.join('app', 'assets', dir))

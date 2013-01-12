@@ -18,8 +18,15 @@ PATH
       sinatra-websocket
       sinatra_more
       thin
-      warden
       yajl-ruby
+
+PATH
+  remote: webmate-authentication
+  specs:
+    webmate-authentication (0.0.1)
+      bcrypt-ruby
+      warden
+      webmate
 
 GEM
   remote: https://rubygems.org/
@@ -32,6 +39,7 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.2)
     backports (2.6.5)
+    bcrypt-ruby (3.0.1)
     bson (1.8.1)
     bson_ext (1.8.1)
       bson (~> 1.8.1)
@@ -173,3 +181,4 @@ DEPENDENCIES
   slim
   therubyracer (= 0.10.2)
   webmate!
+  webmate-authentication!
