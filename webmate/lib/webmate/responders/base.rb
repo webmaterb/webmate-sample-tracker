@@ -18,7 +18,9 @@ module Webmate::Responders
     end
 
     def wrap_response(response)
-      Yajl::Encoder.new.encode({action: @action, response: response})
+      Yajl::Encoder.new.encode(
+        action: @action, response: response, client_id: @params[:client_id]
+      )
     end
 
     def async(&block)

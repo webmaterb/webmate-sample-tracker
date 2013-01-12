@@ -14,6 +14,8 @@ module Webmate
           ws.onmessage do |msg|
             data = Yajl::Parser.new(symbolize_keys: true).parse(msg)
             puts "WebSocket #{path} #{data[:action]}"
+            puts "Params: #{data.inspect}"
+            puts ""
             body = RouterChannel.respond_to(path, data)
             settings._websockets[request.path].each{|s| s.send(body) }
           end
