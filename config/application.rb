@@ -24,6 +24,12 @@ class WebmateApp < Webmate::Application
   end
 
   channel "projects/:project_id" do
+    # Coming soon
+    #
+    # authorize do
+    #   current_user.projects.include?(project)
+    # end
+    #
     get "tasks/read" => Responders::Tasks
     post "tasks/create" => Responders::Tasks
     put "tasks/update" => Responders::Tasks

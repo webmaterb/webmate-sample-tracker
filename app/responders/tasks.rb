@@ -1,4 +1,15 @@
 class Responders::Tasks < Webmate::Responders::Base
+  # Coming soon:
+  #
+  # resources :tasks
+  # authorize :user do
+  #   attributes :title, :status
+  #   can :create
+  #   can :update do |task|
+  #     task.user_id == current_user.id
+  #   end
+  # end
+
   def read
     current_user.tasks
   end
