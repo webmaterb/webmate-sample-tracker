@@ -1,7 +1,6 @@
 require 'webmate/responders/callbacks'
 module Webmate::Responders
   class Base
-    class_attribute :exception_handlers
     attr_accessor :action, :params, :request
 
     def initialize(request)
@@ -17,7 +16,15 @@ module Webmate::Responders
     def respond
       process_action
     rescue Exception => e
-      handle_exception!(e)
+      rescue_with_handler(e)
+    end
+
+    def rescue_with_handler(exception)
+      if handler = handler_for_rescue(exception)
+        handler.arity != 0 ? handler.call(exception) : handler.call
+      else
+        raise(e)
+      end
     end
 
     def process_action
@@ -45,24 +52,7 @@ module Webmate::Responders
       block.call
     end
 
-    # If exception have handler, then handle. Else re-raise exception
-    def handle_exception!(e)
-      handlers = self.class.exception_handlers || {}
-      if handlers.include?(e.class)
-        block = handlers[e.class]
-        instance_eval(&block)
-      else
-        raise e
-      end
-    end
-
-    class << self
-      def rescue_from(exception, &block)
-        self.exception_handlers ||= {}
-        self.exception_handlers[exception] = block
-      end
-    end
-
+    include ActiveSupport::Rescuable
     include Webmate::Responders::Callbacks
   end
 end
