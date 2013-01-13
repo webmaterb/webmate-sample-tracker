@@ -1,4 +1,4 @@
-class Responders::Tasks < Webmate::Responders::Base
+class Responders::Tasks < Responders::Base
   # Coming soon:
   #
   # resources :tasks

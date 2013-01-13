@@ -1,10 +1,13 @@
 module Webmate::Responders
   class Base
+    extend ActiveSupport::Concern
+
+    class_attribute :exception_handlers
     attr_accessor :action, :params, :request
 
-    def initialize(request, params)
+    def initialize(request)
       @request = request
-      @params = params
+      @params = request.params
       @action = params[:action]
     end
 
@@ -13,21 +16,20 @@ module Webmate::Responders
     end
 
     def respond
-      if respond_to?(action_method)
-        response = self.send(action_method)
-        async do
-          Webmate::Observers::Base.execute_all(
-            action, {action: action, response: response, params: params}
-          )
-        end
-        [200, wrap_response(response)]
-      else
-        render_404
-      end
+      respond!
+    rescue Exception => e
+      handle_exception!(e)
     end
 
-    def render_404
-      [404, wrap_response(action: action, response: "Action not Found", params: params)]
+    def respond!
+      raise Webmate::Responders::ActionNotFound unless respond_to?(action_method)
+      response = self.send(action_method)
+      async do
+        Webmate::Observers::Base.execute_all(
+          action, {action: action, response: response, params: params}
+        )
+      end
+      [200, wrap_response(response)]
     end
 
     def wrap_response(response)
@@ -36,8 +38,30 @@ module Webmate::Responders
       )
     end
 
+    def render_not_found
+      [404, wrap_response(response: "Action not Found")]
+    end
+
     def async(&block)
       block.call
+    end
+
+    # If exception have handler, then handle. Else re-raise exception
+    def handle_exception!(e)
+      handlers = self.class.exception_handlers || {}
+      if handlers.include?(e.class)
+        block = handlers[e.class]
+        instance_eval(&block)
+      else
+        raise e
+      end
+    end
+
+    class << self
+      def rescue_from(exception, &block)
+        self.exception_handlers ||= {}
+        self.exception_handlers[exception] = block
+      end
     end
   end
 end

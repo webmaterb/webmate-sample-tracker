@@ -13,13 +13,13 @@ module Webmate
               settings._websockets[request.path] << ws
             end
             ws.onmessage do |msg|
-              data = Yajl::Parser.new(symbolize_keys: true).parse(msg)
-              response = RouterChannel.respond_to(path, request, data)
+              request.params.merge! Yajl::Parser.new(symbolize_keys: true).parse(msg)
+              response = RouterChannel.respond_to(path, request)
               if response.first == 200
                 settings._websockets[request.path].each{|s| s.send(response.last) }
               end
-              puts "WebSocket #{path} #{data[:action]} #{response.first}"
-              puts "Params: #{data.inspect}"
+              puts "WebSocket #{path} #{request.params[:action]} #{response.first}"
+              puts "Params: #{request.params.inspect}"
               puts ""
             end
             ws.onclose do
@@ -30,8 +30,8 @@ module Webmate
         end
         channel.routes.each do |route|
           responder_block = lambda do
-            data = params.merge({action: route[:action]})
-            response = route[:responder].new(request, data).respond
+            request.params.merge!(action: route[:action])
+            response = route[:responder].new(request).respond
             status, body = *response
             status == 200 ? body : [status, {}, body]
           end
@@ -53,11 +53,12 @@ module Webmate
             self.channels[path][action] = options
           end
 
-          def respond_to(path, request, data)
-            if channels[path] && channels[path][data[:action]]
-              channels[path][data[:action]][:responder].new(request, data).respond
+          def respond_to(path, request)
+            params = request.params
+            if channels[path] && channels[path][params[:action]]
+              channels[path][params[:action]][:responder].new(request).respond
             else
-              Webmate::Responders::Base.new(data[:action], data).render_404
+              Webmate::Responders::Base.new(request).render_not_found
             end
           end
         end
