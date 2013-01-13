@@ -15,7 +15,7 @@ module Webmate::Responders
     end
 
     def respond
-      send :process_action
+      process_action
     rescue Exception => e
       handle_exception!(e)
     end
