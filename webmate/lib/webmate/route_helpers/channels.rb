@@ -14,13 +14,13 @@ module Webmate
             end
             ws.onmessage do |msg|
               data = Yajl::Parser.new(symbolize_keys: true).parse(msg)
-              puts "WebSocket #{path} #{data[:action]}"
-              puts "Params: #{data.inspect}"
-              puts ""
               response = RouterChannel.respond_to(path, request, data)
               if response.first == 200
                 settings._websockets[request.path].each{|s| s.send(response.last) }
               end
+              puts "WebSocket #{path} #{data[:action]} #{response.first}"
+              puts "Params: #{data.inspect}"
+              puts ""
             end
             ws.onclose do
               warn("websocket closed")
@@ -54,7 +54,11 @@ module Webmate
           end
 
           def respond_to(path, request, data)
-            self.channels[path][data[:action]][:responder].new(request, data).respond
+            if channels[path] && channels[path][data[:action]]
+              channels[path][data[:action]][:responder].new(request, data).respond
+            else
+              Webmate::Responders::Base.new(data[:action], data).render_404
+            end
           end
         end
 

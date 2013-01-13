@@ -27,5 +27,6 @@ class WebmateApp < Webmate::Application
     get "tasks/read" => Responders::Tasks
     post "tasks/create" => Responders::Tasks
     put "tasks/update" => Responders::Tasks
+    delete "tasks/delete" => Responders::Tasks
   end
 end

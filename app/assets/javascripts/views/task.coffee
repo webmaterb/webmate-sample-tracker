@@ -1,6 +1,8 @@
 App.Views.Task = Backbone.View.extend
   tagName: "li"
   className: "task"
+  events:
+    "click .delete": "delete"
 
   initialize: ->
     @model.on "change", @render, @
@@ -11,4 +13,10 @@ App.Views.Task = Backbone.View.extend
   render: ->
     self = @
     @$el.html ich.tpl_task @model.toJSON()
+    @
+
+  delete: ->
+    @model.destroy()
+    @$el.empty().remove()
+    App.tasks.remove(@model)
     @

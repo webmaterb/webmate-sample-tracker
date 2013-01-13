@@ -26,9 +26,10 @@
     data = {}
     if model and (method is "create" or method is "update" or method is 'patch')
       data[model.resourceName()] = (options.attrs || model.toJSON())
-    if model and (method is "destroy" or method is "update" or method is 'patch')
-      data[model.idAttribute] = model.id
+    if model and (method is "update" or method is 'patch')
       delete data[model.resourceName()][model.idAttribute]
+    if model and (method is "delete" or method is "update" or method is 'patch')
+      data[model.idAttribute] = model.id
     if window.WebSocket
       token = $('meta[name="websocket-token"]').attr('content')
       data.user_websocket_token = token

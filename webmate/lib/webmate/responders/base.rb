@@ -17,18 +17,22 @@ module Webmate::Responders
         response = self.send(action_method)
         async do
           Webmate::Observers::Base.execute_all(
-            @action, {action: @action, response: response, params: params}
+            action, {action: action, response: response, params: params}
           )
         end
         [200, wrap_response(response)]
       else
-        [404, wrap_response(action: @action, response: "Action ", params: params)]
+        render_404
       end
+    end
+
+    def render_404
+      [404, wrap_response(action: action, response: "Action not Found", params: params)]
     end
 
     def wrap_response(response)
       Yajl::Encoder.new.encode(
-        action: @action, response: response, client_id: @params[:client_id]
+        action: action, response: response, client_id: params[:client_id]
       )
     end
 

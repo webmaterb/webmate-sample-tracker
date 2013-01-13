@@ -17,4 +17,10 @@ class Responders::Tasks < Webmate::Responders::Base
     task.update_attributes(attributes)
     task
   end
+
+  def delete
+    task = Task.find(params[:_id])
+    task.destroy
+    task
+  end
 end
