@@ -9,10 +9,3 @@ Webmate will be moved to separate gem after releasing alpha version.
 
 ### Start console
 * $ bundle exec webmate console
-
-## Client Websocket sample:
-
-```
-App.main = new App.Views.Main()
-App.main.start()
-```
