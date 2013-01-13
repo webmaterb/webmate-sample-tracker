@@ -12,7 +12,9 @@ class Responders::Tasks < Webmate::Responders::Base
 
   def update
     task = Task.find(params[:_id])
-    task.update_attributes(params[:task])
+    attributes = params[:task]
+    attributes.delete(:user_id)
+    task.update_attributes(attributes)
     task
   end
 end
