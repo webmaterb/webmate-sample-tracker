@@ -1,7 +1,6 @@
+require 'webmate/responders/callbacks'
 module Webmate::Responders
   class Base
-    extend ActiveSupport::Concern
-
     class_attribute :exception_handlers
     attr_accessor :action, :params, :request
 
@@ -16,12 +15,12 @@ module Webmate::Responders
     end
 
     def respond
-      respond!
+      send :process_action
     rescue Exception => e
       handle_exception!(e)
     end
 
-    def respond!
+    def process_action
       raise Webmate::Responders::ActionNotFound unless respond_to?(action_method)
       response = self.send(action_method)
       async do
@@ -63,5 +62,7 @@ module Webmate::Responders
         self.exception_handlers[exception] = block
       end
     end
+
+    include Webmate::Responders::Callbacks
   end
 end

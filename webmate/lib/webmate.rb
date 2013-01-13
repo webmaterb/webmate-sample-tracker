@@ -23,8 +23,8 @@ end
 
 require 'webmate/support/thin'
 require 'webmate/support/sprockets'
-require 'webmate/responders/base'
 require 'webmate/responders/exceptions'
+require 'webmate/responders/base'
 require 'webmate/services/base'
 require 'webmate/observers/base'
 require 'webmate/decorators/base'
