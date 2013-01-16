@@ -3,8 +3,8 @@ require 'bundler/capistrano'
 require 'capistrano-rbenv'
 
 set :stages, %w(staging production)
-set :default_stage, "production"
-set :deploy_via, :remote_cache
+set :default_stage, "staging"
+set :deploy_via, :copy
 set :keep_releases, 5
 set :scm, :git
 

@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/webmaterb/webmate.git
-  revision: 96bc07aa126e3609cb2e8dcce5c5a8356d60e031
+  revision: 163e825221d3845dc9df6a30dc2975af95764d7e
   specs:
     webmate (0.0.3)
       configatron
@@ -96,7 +96,7 @@ GEM
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.6.2)
+    net-ssh (2.6.3)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     rack (1.4.4)
