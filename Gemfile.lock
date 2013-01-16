@@ -5,8 +5,18 @@ GIT
     alphasights-sinatra-sprockets (0.1.0)
       sprockets (~> 2.0)
 
-PATH
-  remote: webmate
+GIT
+  remote: git://github.com/webmaterb/webmate-authentication.git
+  revision: 35edfa884e6be7a17c499288eff8769a27f71f05
+  specs:
+    webmate-authentication (0.0.1)
+      bcrypt-ruby
+      warden
+      webmate
+
+GIT
+  remote: git://github.com/webmaterb/webmate.git
+  revision: de84fbdb9cd6141660fb8689e1353f181d48b47f
   specs:
     webmate (0.0.3)
       configatron
@@ -20,14 +30,6 @@ PATH
       thin
       yajl-ruby
 
-PATH
-  remote: webmate-authentication
-  specs:
-    webmate-authentication (0.0.1)
-      bcrypt-ruby
-      warden
-      webmate
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -38,20 +40,12 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.3.2)
-    backports (2.6.5)
+    backports (2.6.7)
     bcrypt-ruby (3.0.1)
     bson (1.8.1)
     bson_ext (1.8.1)
       bson (~> 1.8.1)
     builder (3.0.4)
-    capistrano (2.13.5)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
-    capistrano-rbenv (0.0.8)
-      capistrano
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -78,7 +72,6 @@ GEM
     eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    highline (1.6.15)
     hike (1.2.1)
     http_parser.rb (0.5.3)
     i18n (0.6.1)
@@ -90,13 +83,6 @@ GEM
       mongo (~> 1.7)
       tzinfo (~> 0.3.22)
     multi_json (1.5.0)
-    net-scp (1.0.4)
-      net-ssh (>= 1.99.1)
-    net-sftp (2.0.5)
-      net-ssh (>= 2.0.9)
-    net-ssh (2.6.2)
-    net-ssh-gateway (1.1.0)
-      net-ssh (>= 1.99.1)
     rack (1.4.3)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
@@ -171,8 +157,6 @@ PLATFORMS
 DEPENDENCIES
   alphasights-sinatra-sprockets!
   bson_ext
-  capistrano (= 2.13.5)
-  capistrano-rbenv (= 0.0.8)
   coffee-script
   mongoid (= 2.5.1)
   rack-test

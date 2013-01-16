@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'webmate', path: File.dirname(__FILE__) + '/webmate'
-gem 'webmate-authentication', path: File.dirname(__FILE__) + '/webmate-authentication'
+gem 'webmate', git: 'git://github.com/webmaterb/webmate.git'
+gem 'webmate-authentication', git: 'git://github.com/webmaterb/webmate-authentication.git'
 
 gem 'slim'
 gem 'bson_ext'
