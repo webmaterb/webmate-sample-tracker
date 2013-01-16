@@ -1,0 +1,6 @@
+development:
+  sessions:
+    default:
+      database: webmate
+      hosts:
+        - localhost:27017

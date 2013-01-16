@@ -1,20 +1,14 @@
 require 'mongoid'
 
-if ENV['MONGOHQ_URL']
-  db = URI.parse(ENV['MONGOHQ_URL'])
-  db_name = db.path.gsub(/^\//, '')
-  db_host = db.host
-  db_port = db.port
+config = YAML.load_file("#{WEBMATE_ROOT}/config/mongoid.yml")
+db = config[Webmate.env]["sessions"]["default"]
 
-  connection = Mongo::Connection.new(db_host, db_port)
-  connection.db(db_name).authenticate(db.user, db.password)
-else
-  db_name = "webmate"
-  db_host = "localhost"
-  db_port = "27017"
+db_host_and_port = db['hosts'].first.split(':')
+db_name = db['database']
+db_host = db_host_and_port[0]
+db_port = db_host_and_port[1]
 
-  connection = Mongo::Connection.new(db_host, db_port)
-end
+connection = Mongo::Connection.new(db_host, db_port)
 
 Mongoid.configure do |config|
   config.allow_dynamic_fields = true
