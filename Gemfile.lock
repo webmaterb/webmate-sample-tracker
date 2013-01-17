@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/webmaterb/webmate-authentication.git
-  revision: 35edfa884e6be7a17c499288eff8769a27f71f05
+  revision: 09a1ab156b528338c6a29fcf86472a012a0e572b
   specs:
     webmate-authentication (0.0.1)
       bcrypt-ruby
@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/webmaterb/webmate.git
-  revision: fe59dd3ee8cc119ba56f85d14b71d68e7ff61414
+  revision: d1bac6611170bfab9c7d565a29801ec6fc452bca
   specs:
     webmate (0.0.3)
       configatron
