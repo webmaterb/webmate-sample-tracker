@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/webmaterb/webmate-authentication.git
-  revision: 09a1ab156b528338c6a29fcf86472a012a0e572b
+  revision: b2fc419e4c525097748c8a622bc96efe75bbb26d
   specs:
     webmate-authentication (0.0.1)
       bcrypt-ruby
@@ -43,9 +43,9 @@ GEM
     addressable (2.3.2)
     backports (2.6.7)
     bcrypt-ruby (3.0.1)
-    bson (1.8.1)
-    bson_ext (1.8.1)
-      bson (~> 1.8.1)
+    bson (1.8.2)
+    bson_ext (1.8.2)
+      bson (~> 1.8.2)
     builder (3.0.4)
     capistrano (2.13.5)
       highline
@@ -89,8 +89,8 @@ GEM
     http_parser.rb (0.5.3)
     i18n (0.6.1)
     libv8 (3.3.10.4)
-    mongo (1.8.1)
-      bson (~> 1.8.1)
+    mongo (1.8.2)
+      bson (~> 1.8.2)
     mongoid (2.5.1)
       activemodel (~> 3.1)
       mongo (~> 1.7)

@@ -11,6 +11,5 @@ db_port = db_host_and_port[1]
 connection = Mongo::Connection.new(db_host, db_port)
 
 Mongoid.configure do |config|
-  config.allow_dynamic_fields = true
   config.master = connection.db(db_name)
 end
