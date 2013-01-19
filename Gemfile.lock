@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: git://github.com/webmaterb/webmate.git
-  revision: 4aefe72213545932e1b2366d905ea40c4737ea92
+  revision: 206e11cd65c4133da4bd35c78a08ca4aa1075531
   specs:
     webmate (0.0.3)
       configatron
