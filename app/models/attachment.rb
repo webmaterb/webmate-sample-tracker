@@ -1,6 +1,5 @@
 class Attachment
   include Mongoid::Document
   mount_uploader :file, AttachmentUploader
-
-  field :task_id
+  embedded_in :task
 end
