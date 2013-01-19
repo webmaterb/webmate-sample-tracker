@@ -36,3 +36,4 @@ App.Views.Task = Backbone.View.extend
         data.formData =
           'attachment[task_id]': self.model.get "_id"
         data.submit()
+        $(self.el).removeClass "file-hover"

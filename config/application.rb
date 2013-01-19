@@ -16,11 +16,11 @@ class WebmateApp < Webmate::Application
     #   current_user.projects.include?(project)
     # end
     #
-    get "tasks/read" => Responders::Tasks
-    post "tasks/create" => Responders::Tasks
-    put "tasks/update" => Responders::Tasks
-    delete "tasks/delete" => Responders::Tasks
+    get "tasks/read" => TasksResponder
+    post "tasks/create" => TasksResponder
+    put "tasks/update" => TasksResponder
+    delete "tasks/delete" => TasksResponder
 
-    post "attachments/create" => Responders::Attachments
+    post "attachments/create" => AttachmentsResponder
   end
 end

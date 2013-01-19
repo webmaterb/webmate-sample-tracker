@@ -1,4 +1,4 @@
-class Services::TaskNotifier < Webmate::Services::Base
+class TaskNotifierService < Webmate::Services::Base
   def initialize(user)
 
   end

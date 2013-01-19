@@ -1,4 +1,4 @@
-class Responders::Base < Webmate::Responders::Base
+class BaseResponder < Webmate::Responders::Base
   # Available options
   # before_filter :do_something
 

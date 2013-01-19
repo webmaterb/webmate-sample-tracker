@@ -5,8 +5,18 @@ GIT
     alphasights-sinatra-sprockets (0.1.0)
       sprockets (~> 2.0)
 
-PATH
-  remote: /Users/gvalmon/Sites/webmate
+GIT
+  remote: git://github.com/webmaterb/webmate-authentication.git
+  revision: b2fc419e4c525097748c8a622bc96efe75bbb26d
+  specs:
+    webmate-authentication (0.0.1)
+      bcrypt-ruby
+      warden
+      webmate
+
+GIT
+  remote: git://github.com/webmaterb/webmate.git
+  revision: 3c18f2b01a277960d09eb425b33cb72ac0ba079c
   specs:
     webmate (0.0.3)
       configatron
@@ -20,14 +30,6 @@ PATH
       thin
       yajl-ruby
 
-PATH
-  remote: /Users/gvalmon/Sites/webmate-authentication
-  specs:
-    webmate-authentication (0.0.1)
-      bcrypt-ruby
-      warden
-      webmate
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -38,7 +40,7 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.3.2)
-    backports (2.6.7)
+    backports (2.7.0)
     bcrypt-ruby (3.0.1)
     bson (1.8.2)
     bson_ext (1.8.2)

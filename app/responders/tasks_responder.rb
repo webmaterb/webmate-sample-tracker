@@ -1,4 +1,4 @@
-class Responders::Tasks < Responders::Base
+class TasksResponder < BaseResponder
   # Coming soon:
   #
   # resources :tasks
