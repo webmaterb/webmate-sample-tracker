@@ -1,14 +1,15 @@
 source 'https://rubygems.org'
 
-gem 'webmate', git: 'git://github.com/webmaterb/webmate.git'
-gem 'webmate-authentication', git: 'git://github.com/webmaterb/webmate-authentication.git'
+#gem 'webmate', git: 'git://github.com/webmaterb/webmate.git'
+#gem 'webmate-authentication', git: 'git://github.com/webmaterb/webmate-authentication.git'
 
-#gem 'webmate', path: File.dirname(__FILE__) + '/../webmate'
-#gem 'webmate-authentication', path: File.dirname(__FILE__) + '/../webmate-authentication'
+gem 'webmate', path: File.dirname(__FILE__) + '/../webmate'
+gem 'webmate-authentication', path: File.dirname(__FILE__) + '/../webmate-authentication'
 
 gem 'slim'
 gem 'bson_ext'
 gem 'mongoid', '2.5.1'
+gem 'carrierwave-mongoid'
 
 group :assets do
   gem 'therubyracer', '0.10.2'

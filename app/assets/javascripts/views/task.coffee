@@ -13,6 +13,7 @@ App.Views.Task = Backbone.View.extend
   render: ->
     self = @
     @$el.html ich.tpl_task @model.toJSON()
+    @renderFileUploader()
     @
 
   delete: ->
@@ -20,3 +21,18 @@ App.Views.Task = Backbone.View.extend
     @$el.empty().remove()
     App.tasks.remove(@model)
     @
+
+  renderFileUploader: ->
+    self = @
+    @$el.on
+      'dragenter dragover': ->
+        $(this).addClass "file-hover"
+      dragleave: ->
+        $(this).removeClass "file-hover"
+    @$el.find('.attachment-uploader').fileupload
+      url: "/projects/123/attachments/create"
+      dropZone: @$el
+      add: (e, data)->
+        data.formData =
+          'attachment[task_id]': self.model.get "_id"
+        data.submit()

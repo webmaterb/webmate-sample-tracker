@@ -3,7 +3,7 @@
 
 Webmate::Application.configure do |config|
   # add directory to application load paths
-  # configatron.app.load_paths << ["app/helpers"]
+  configatron.app.load_paths << ["app/uploaders"]
 end
 
 Webmate::Application.configure(:development) do |config|

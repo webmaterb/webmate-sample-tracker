@@ -1,5 +1,6 @@
 //= require libs/jquery
 //= require libs/jquery-ui
+//= require libs/jquery.fileupload
 //= require webmate
 
 //= require_tree ./models

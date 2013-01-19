@@ -20,5 +20,7 @@ class WebmateApp < Webmate::Application
     post "tasks/create" => Responders::Tasks
     put "tasks/update" => Responders::Tasks
     delete "tasks/delete" => Responders::Tasks
+
+    post "attachments/create" => Responders::Attachments
   end
 end
