@@ -14,4 +14,5 @@ end
 Webmate::Application.configure(:production) do |config|
   config.app.cache_classes = true
   config.websockets.port = 9020
+  config.assets.compile = false
 end

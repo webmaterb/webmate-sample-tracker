@@ -1,9 +1,10 @@
 html
   head
-    script type="text/javascript" src="/assets/application.js"
-    link rel="stylesheet" type="text/css" href="/assets/application.css"
-    meta content="#{user_websocket_token}" name="websocket-token"
-    == client_configs
+    title Webmate Task Tracker
+    == javascript_include_tag "application.js"
+    == stylesheet_link_tag "application.css"
+    == user_websocket_token_tag
+    == javascript_client_configs
   body
     #wrapper
       == yield
