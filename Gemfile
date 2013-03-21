@@ -8,7 +8,7 @@ gem 'webmate-authentication', git: 'git://github.com/webmaterb/webmate-authentic
 
 gem 'slim'
 gem 'bson_ext'
-gem 'mongoid', '2.5.1'
+gem 'mongoid', '3.1.2'
 gem 'carrierwave-mongoid'
 
 group :assets do

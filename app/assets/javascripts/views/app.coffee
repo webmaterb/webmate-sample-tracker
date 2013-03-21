@@ -9,8 +9,7 @@ App.Views.Main = Backbone.View.extend
     App.tasks = new App.Collections.Tasks()
     App.tasks.on "add", @addTask, @
     App.tasks.on "reset", @renderTasksLists, @
-    @client = Webmate.connect 'projects/123', ->
-      App.tasks.fetch()
+    App.tasks.fetch()
     @bindTasksDraggable()
 
   addTask: (task)->

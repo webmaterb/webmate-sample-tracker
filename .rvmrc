@@ -1,1 +1,1 @@
-rvm use --create 1.9.3-p327@webmate
+rvm use --create 1.9.3@webmate

@@ -6,6 +6,7 @@ App.Views.Task = Backbone.View.extend
 
   initialize: ->
     @model.on "change", @render, @
+    @model.on "change:status", @changeStatus, @
     @model.view = this
     $.data @el, "view", @
     @
@@ -15,6 +16,9 @@ App.Views.Task = Backbone.View.extend
     @$el.html ich.tpl_task @model.toJSON()
     @renderFileUploader()
     @
+
+  changeStatus: ->
+    $(".tasks-list[rel='#{@model.get('status')}']").append(@$el)
 
   delete: ->
     @model.destroy()
